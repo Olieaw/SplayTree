@@ -15,6 +15,8 @@ public class SplayTreeTest {
         tree.add(13);
         tree.add(11);
         tree.add(1);
+        assertFalse(tree.add(11));
+        assertFalse(tree.add(1));
 
         assertEquals(5, tree.size());
     }
@@ -79,5 +81,52 @@ public class SplayTreeTest {
         tree.add("Cow");
         assertTrue(tree.contains("Cow"));
         assertFalse(tree.contains("Calf"));
+    }
+
+    @Test
+    public void testSplay(){
+        SplayTree<Integer> tree = new SplayTree<Integer>();
+        tree.add(5);
+        tree.add(9);
+        tree.add(13);
+        tree.add(11);
+        tree.add(3);
+
+        assertTrue(tree.splay(9));
+        assertTrue(tree.splay(13));
+        assertTrue(tree.splay(11));
+        assertFalse(tree.splay(7));
+        assertFalse(tree.splay(1));
+    }
+
+    @Test
+    public void testIterator(){
+        SplayTree<Integer> tree = new SplayTree<Integer>();
+        assertTrue(tree.isEmpty());
+        tree.add(5);
+        tree.add(9);
+        tree.add(13);
+        tree.add(11);
+        tree.add(3);
+
+        int[] mas = new int[tree.size()];
+        int[ ]mas2 = {3, 5, 9, 11, 13};
+        int j = 0;
+
+        for(int i: tree) {
+            mas[j] = i;
+            j++;
+        }
+
+        assertFalse(tree.isEmpty());
+        assertArrayEquals(mas2, mas);
+        assertTrue(tree.splay(13));
+
+        j = 0;
+        for(int i: tree) {
+            mas[j] = i;
+            j++;
+        }
+        assertArrayEquals(mas2, mas);
     }
 }
